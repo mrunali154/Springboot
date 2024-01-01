@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>User Landing Page</title>
+
+    <style>
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px, 80px;
+            background: #E3E6F3;
+            box-shadow: 0 5px 15px rgba(0, 0 green, 0 blue, 0.6 alpha);
+            z-index: 999;
+            position: sticky;
+            top: 0;
+            left: 0;
+        }
+
+        #navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+
+        }
+
+        #navbar li {
+            list-style: none;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        #navbar li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            transition: 0.3s ease;
+        }
+
+        #navbar li a:hover,
+        #navbar li a.active::after {
+            color: #088178;
+        }
+
+        #navbar li a.active::after,
+        #navbar li a:hover::after {
+            content: "";
+            width: 30%;
+            height: 2px;
+            background: #088178;
+            position: absolute;
+            bottom: -4px;
+            left: 20px;
+        }
+
+        #hero {
+            background: url(../images/2.jpg);
+            /*   background: url(../images/2.jpg);*/
+
+            height: 90vh;
+            width: 100%;
+            background-position: top 5% right 0;
+            background-size: cover;
+            padding: 0 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        #hero h4 {
+            padding-bottom: 15px;
+        }
+
+        #hero h1 {
+            color: #088178;
+        }
+
+        #hero button {
+            background-image: url("but.jpg");
+            background-color: transparent;
+            color: #088178;
+            border: 0;
+            padding: 14px 80px 14px 65px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .section-p1 {
+            padding: 40px 80px;
+        }
+
+        #feature {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #feature .fe-box {
+            width: 180px;
+            text-align: center;
+            padding: 25px 15px;
+            box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03);
+            border: 1px solid #cce7d0;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        #feature .fe-box:hover {
+            box-shadow: 10px 10px 54px rgba(70, 62, 221, 0.1);
+        }
+
+        #feature .fe-box h6 {
+            display: inline-block;
+            padding: 9px 8px 6px 8px;
+            line-height: 1;
+            border-radius: 4px;
+            color: #088178;
+            background-color: #fddde4;
+        }
+
+        #feature .fe-box:nth-child(2) h6 {
+            background-color: #cdebbc;
+
+        }
+
+        #feature .fe-box:nth-child(3) h6 {
+            background-color: #d1e8f2;
+
+        }
+
+        #feature .fe-box:nth-child(4) h6 {
+            background-color: #cdd4f8;
+
+        }
+
+        #feature .fe-box:nth-child(5) h6 {
+            background-color: #f6dbf6;
+
+        }
+
+        #feature .fe-box:nth-child(6) h6 {
+            background-color: #fff2ef;
+
+        }
+
+        #feature .fe-box img {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #i {
+            height: 150px;
+            width: 150px;
+        }
+
+        #product1 {
+            text-align: center;
+        }
+
+        #product1 .pro-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        #product1 .pro {
+            width: 23%;
+            min-width: 250px;
+            padding: 10px 12px;
+            border: 1px solid #cce7d0;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+            margin: 15px 0;
+            transition: 0.2s ease;
+            position: relative;
+        }
+
+        #product1 .pro:hover {
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        #product1 .pro .des {
+            text-align: start;
+            padding: 10px 0;
+        }
+
+        #product1 .pro .des span {
+            color: #606063;
+            font-size: 12px;
+        }
+
+        #product1 .pro .des h5 {
+            padding-top: 7px;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        #product1 .pro .des h4 {
+            padding-top: 7px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #088178;
+        }
+
+        #product1 .pro .cart {
+            width: 55px;
+            height: 55px;
+            line-height: 40px;
+            border-radius: 50px;
+            background-color: #e8f6ea;
+            font-weight: 500;
+            color: #088178;
+            border: 1px solid #cce7d0;
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+        }
+
+        #product1 .pro img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        #banner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url(../images/Electronic.jpg);
+
+            width: 100%;
+            height: 40vh;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .dropdown:hover>.dropdown-menu {
+            display: block;
+
+        }
+
+        .dropdown>.dropdown-toggle:active {
+            /*Without this, clicking will make it sticky*/
+            pointer-events: none;
+        }
+
+        .gradient-custom-3 {
+            /* fallback for old browsers */
+            background: #84fab0;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+        }
+
+        .gradient-custom-4 {
+            /* fallback for old browsers */
+            background: #84fab0;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section id="header">
+        <a href="#"><img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="60" height="55" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a th:href="@{/}" href="UserLanding.html" method="post">Home</a></li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">Shop</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="#">Cart</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}"></span>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!--    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                    class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}" href="#">home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/shop}" href="#">shop</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">login</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" href="#">logout</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/cart}" href="#">cart</a>
+                    </li>
+                    <li class="nav-item active">
+                        <span class="nav-link" th:text="${cartCount}">0</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+-->
+    <section id="hero">
+        <h4>Trade-in-offer</h4>
+        <h2>Super value deals</h2>
+        <h1>On all products</h1>
+        <p>Save more with coupons & up to 70% off!</p>
+        <button>Shop Now</button>
+
+    </section>
+
+    <section id="feature" class="section-p1">
+
+        <div class="fe-box">
+            <img th:src="@{/images/2.jpg}"
+                src="C:\Users\user1\Desktop\Project\sample\target\classes\static\images\2.jpg" id="i" alt="">
+            <h6>Free Shipping</h6>
+
+        </div>
+
+        <div class="fe-box">
+            <img th:src="@{/images/onlineorder.jpg}"
+                src="C:\Users\user1\Desktop\Project\sample\target\classes\static\images\onlineorder.jpg" id="i" alt="">
+            <h6>Online Order</h6>
+        </div>
+
+        <div class="fe-box">
+            <img th:src="@{/images/savemoney.jpeg}"
+                src="C:\Users\user1\Desktop\Project\sample\target\classes\static\images\savemoney.jpeg" id="i" alt="">
+            <h6>Save Money</h6>
+
+        </div>
+
+        <!--
+     <div class="fe-box">
+        <img src="promotions.jpg" id="i" alt="">
+        <h6>Promotions</h6>
+   -->
+        </div>
+
+        <div class="fe-box">
+            <img th:src="@{/images/happysale.jpg}"
+                src="C:\Users\user1\Desktop\Project\sample\target\classes\static\images\happysale.jpg" id="i" alt="">
+            <h6>Happy Sale</h6>
+
+        </div>
+
+        <div class="fe-box">
+            <img th:src="@{/images/service.webp}"
+                src="C:\Users\user1\Desktop\Project\sample\target\classes\static\images\service.webp" id="i" alt="">
+            <h6>F24/7 Support</h6>
+
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Summer Collection New Modern Design</p>
+        <div class="pro-container">
+            <div class="pro">
+                <img th:src="@{/images/Shirt1.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Shirt1.webp"
+                    height="68%">
+                <div class="des">
+                    <span>Jai Textiles</span>
+                    <h5>Men Slim Fit Solid Spread</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 599</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/Shirt2.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Shirt2.webp"
+                    height="68%">
+                <div class="des">
+                    <span>Jai Textiles</span>
+                    <h5>Men Slim Fit Solid Spread</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 799</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/Shirt3.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Shirt3.webp"
+                    height="68%">
+                <div class="des">
+                    <span>VTEXX</span>
+                    <h5>Men Slim Fit Solid Spread</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 399</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="banner" class="section-p1">
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Top Selection</h2>
+
+        <div class="pro-container">
+            <div class="pro">
+                <img th:src="@{/images/Watch1.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Watch1.webp">
+                <div class="des">
+                    <span>Fire-Boltt Ninja Pro Max Smartwatch</span>
+                    <h5>1.6" Large Color LCD Full Touch Screen with 2.5D Curved Glass and 240*288 pixel Resolution</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 3999</h4>
+                </div>
+
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/Watch4.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Watch4.webp">
+                <div class="des">
+                    <span>Noise ColorFit Icon 2 1.8 Display, Bluetooth Calling, AI Voice Assistance Smartwatch (Black
+                        Strap, Regular)</span>
+                    <h5>1.8 display (500 nits brightness)| Bluetooth calling| AI voice assistant</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 2499</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/Watch5.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\Watch5.webp">
+                <div class="des">
+                    <span>boAt Storm call 1.69 inch HD display with bluetooth calling and 550 nits brightness Smartwatch
+                        (Green Strap, Free Size)</span>
+                    <h5>1.69inch HD Display|550 Nits Brightness| 2.5D Curved Touch Display</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 4999</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Top Electronic Products</h2>
+
+        <div class="pro-container">
+            <div class="pro">
+                <img th:src="@{/images/TV.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\TV.webp">
+                <div class="des">
+                    <span>ViewSonic 21.5 Inch Full HD LED Backlit VA Panel with E...</span>
+                    <h5>AMD Free Sync, Response Time: 4 ms, 75 Hz Refresh Rate</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 15999</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/TV2.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\TV2.webp">
+                <div class="des">
+                    <span>MarQ by Flipkart 32 inch Curved Full HD LED Backlit VA ...</span>
+                    <h5>AMD Free Sync, Response Time: 5 ms, 165 Hz Refresh Rate</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 17999</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+            <div class="pro">
+                <img th:src="@{/images/TV3.webp}"
+                    src="C:\Users\user1\Desktop\Project\sample\src\main\resources\static\images\TV3.webp">
+                <div class="des">
+                    <span>Lenovo L-Series 27 Inch Full HD IPS Panel with Rotating...</span>
+                    <h5>AMD Free Sync, Response Time: 4 ms, 75 Hz Refresh Rate</h5>
+                    <div class="star">
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span style="color: orange;" class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <h4>Price 20000</h4>
+                </div>
+                <a href="#" onclick="Fun()"><i class="fa fa-shopping-cart cart" style="font-size:40px;"></i></a>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+
+        <footer class="text-white text-center text-lg-start bg-dark">
+            <!-- Grid container -->
+            <div class="container p-4">
+                <!--Grid row-->
+                <div class="row mt-4">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">About company</h5>
+
+                        <p>
+                            If you're looking for random paragraphs, you've come to the right place. When a random word
+                            or a random sentence isn't quite enough, the next logical step is to find a random
+                            paragraph. We created the Random Paragraph Generator with you in mind. The process is quite
+                            simple. Choose the number of random paragraphs you'd like to see and click the button. Your
+                            chosen number of paragraphs will instantly appear.
+                        </p>
+                        <div class="mt-4">
+                            <!-- Facebook -->
+                            <a type="button" class="btn btn-floating btn-primary btn-md"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-facebook" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                </svg>
+                            </a>
+                            <!-- Dribbble -->
+                            <a type="button" class="btn btn-floating btn-primary btn-md"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-dribbble" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 0C3.584 0 0 3.584 0 8s3.584 8 8 8c4.408 0 8-3.584 8-8s-3.592-8-8-8zm5.284 3.688a6.802 6.802 0 0 1 1.545 4.251c-.226-.043-2.482-.503-4.755-.217-.052-.112-.096-.234-.148-.355-.139-.33-.295-.668-.451-.99 2.516-1.023 3.662-2.498 3.81-2.69zM8 1.18c1.735 0 3.323.65 4.53 1.718-.122.174-1.155 1.553-3.584 2.464-1.12-2.056-2.36-3.74-2.551-4A6.95 6.95 0 0 1 8 1.18zm-2.907.642A43.123 43.123 0 0 1 7.627 5.77c-3.193.85-6.013.833-6.317.833a6.865 6.865 0 0 1 3.783-4.78zM1.163 8.01V7.8c.295.01 3.61.053 7.02-.971.199.381.381.772.555 1.162l-.27.078c-3.522 1.137-5.396 4.243-5.553 4.504a6.817 6.817 0 0 1-1.752-4.564zM8 14.837a6.785 6.785 0 0 1-4.19-1.44c.12-.252 1.509-2.924 5.361-4.269.018-.009.026-.009.044-.017a28.246 28.246 0 0 1 1.457 5.18A6.722 6.722 0 0 1 8 14.837zm3.81-1.171c-.07-.417-.435-2.412-1.328-4.868 2.143-.338 4.017.217 4.251.295a6.774 6.774 0 0 1-2.924 4.573z" />
+                                </svg>
+                            </a>
+                            <!-- Twitter -->
+                            <a type="button" class="btn btn-floating btn-primary btn-md"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-twitter" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                </svg>
+                            </a>
+                            <!-- Google + -->
+                            <a type="button" class="btn btn-floating btn-primary btn-md"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-google" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                                </svg>
+                            </a>
+                            <!-- Linkedin -->
+                        </div>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4 pb-1">Search something</h5>
+
+                        <div class="form-outline form-white mb-4">
+                            <input type="text" id="formControlLg" class="form-control form-control-lg" />
+                            <label class="form-label" for="formControlLg">Search</label>
+                        </div>
+
+                        <ul class="fa-ul" style="margin-left: 1.65em;">
+                            <li class="mb-3">
+                                <span class="fa-li"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="currentColor" class="bi bi-house bg-primary" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                        <path fill-rule="evenodd"
+                                            d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                                    </svg></span><span class="ms-2">New York, NY
+                                    10012, US</span>
+                            </li>
+                            <li class="mb-3">
+                                <span class="fa-li"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="currentColor" class="bi bi-envelope bg-primary" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
+                                    </svg></span><span class="ms-2">info@example.com</span>
+                            </li>
+                            <li class="mb-3">
+                                <span class="fa-li"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        fill="currentColor" class="bi bi-telephone bg-primary" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                                    </svg></span><span class="ms-2 ">+ 01 234 567
+                                    88</span>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">Opening hours</h5>
+
+                        <table class="table text-center text-white">
+                            <tbody class="font-weight-normal">
+                                <tr>
+                                    <td>Mon - Thu:</td>
+                                    <td>8am - 9pm</td>
+                                </tr>
+                                <tr>
+                                    <td>Fri - Sat:</td>
+                                    <td>8am - 1am</td>
+                                </tr>
+                                <tr>
+                                    <td>Sunday:</td>
+                                    <td>9am - 10pm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2022 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+
+    </div>
+    <!-- End of .container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+
+        function Fun() {
+            return alert("Click on Shop")
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

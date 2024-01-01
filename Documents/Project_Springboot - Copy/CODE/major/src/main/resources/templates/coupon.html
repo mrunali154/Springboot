@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title>Coupon</title>
+    <style>
+        #b {
+            background: url("https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dGFibGUlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80");
+            /*   background: url(../images/2.jpg);*/
+            height: 90vh;
+            width: 100%;
+            background-position: top 5% right 0;
+            background-size: cover;
+            padding: 0 60px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #E3E6F3;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                    class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin}" href="adminHome.html">Admin-Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/products}" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/categories}" href="categories.html">Categories</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin/festivals}" href="festival.html">Festival</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}" href="#">Logout</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--
+    <section id="header">
+        <a href="#"><img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a th:href="@{/admin}" href="adminHome.html">Admin-home</a></li>
+                
+                <li><a th:href="@{/products}" href="products.html">Products</a></li>
+                
+                <li><a th:href="@{/categories}" href="categories.html">Categories</a></li>
+
+                <li><a th:href="@{/festivals}" href="festival.html">Festival</a></li>
+
+                <li><a th:href="@{/logout}" href="#">Logout</a></li>
+                
+            </ul>
+        </div>
+    </section>
+    -->
+    <!--
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/images/logo.png}" src="../static/images/logo.png" width="auto" height="40"
+                    class="d-inline-block align-top" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin}" href="#">admin-home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/logout}" href="#">logout</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    -->
+    <div id="b">
+        <div class="container-fluid">
+
+            <a th:href="@{/coupons/add}" href="couponsAdd.html" style="margin: 20px 0" class="btn btn-primary">Add
+                Coupons</a>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">SN</th>
+                        <th scope="col">Coupon Code</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr th:each="coupon, iStat : ${coupons}">
+                        <th scope="row" th:text="${iStat.index + 1}">1</th>
+                        <td th:text="${coupon.cpname}">Larry</td>
+
+                        <td><a href="" th:href="@{/coupons/delete/{cpid}(cpid=${coupon.cpid})}"
+                                class="btn btn-danger">Delete</a></td>
+                        <td><a href="" th:href="@{/coupons/update/{cpid}(cpid=${coupon.cpid})}"
+                                class="btn btn-warning">Update</a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
