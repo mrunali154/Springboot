@@ -1,4 +1,3 @@
-Check inside  my-new-branch
 I implemented the backend of the project, and utilized differentcomponents to design and implement the backend. Technologies such as Java, Maven, Spring Boot, and Thymeleaf plugin were used in the backend development.
 Various dependencies were incorporated to enhance thefunctionality of the backend.
 successfully connected the backend and frontend using theThymeleaf plugin. This allowed for seamless online shopping functionality.
